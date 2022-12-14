@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -16,8 +16,60 @@ import {
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
 import FullPageLoader from "src/components/full-page-loader";
+import { useDispatch } from "react-redux";
+import Axios from "axios";
+import { toastMessage } from "src/helpers";
+import { BACKEND_URL } from "src/constants";
+import {
+  setuserCompanyName,
+  setUserEmail,
+  setUserFullName,
+  setUserPhone,
+  setUserRole,
+  setUserRoleId,
+  setUserToken,
+} from "src/actions/user";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim() === "" || password.trim() === "") {
+      toastMessage("error", "All fields are required");
+    } else {
+      setIsLoading(true);
+      Axios.post(BACKEND_URL + "/users/login", {
+        email,
+        password,
+      })
+        .then((res) => {
+          dispatch(setUserFullName(res.data.fullName));
+          dispatch(setUserPhone(res.data.phone));
+          dispatch(setUserEmail(res.data.email));
+          dispatch(setuserCompanyName(res.data.companyName));
+          dispatch(setUserRole(res.data.role));
+          dispatch(setUserRoleId(res.data.roleId));
+          dispatch(setUserToken(res.data.token));
+          setIsLoading(false);
+          navigate("/dashboard");
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setPassword("");
+          if (error.response.data.msg) {
+            toastMessage("error", error.response.data.msg);
+          } else {
+            toastMessage("error", "Something went wrong. Try again later");
+          }
+        });
+    }
+  };
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -26,7 +78,7 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleSubmit}>
                     <div className="text-center">
                       <h1>Login</h1>
                       <p className="text-medium-emphasis">
@@ -38,8 +90,10 @@ const Login = () => {
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
-                        placeholder="Username"
-                        autoComplete="username"
+                        placeholder="Email"
+                        autoComplete="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -50,11 +104,13 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={12} className="text-center">
-                        <CButton color="primary" className="px-4">
+                        <CButton type="submit" color="primary" className="px-4">
                           Login
                         </CButton>
                       </CCol>
@@ -66,7 +122,7 @@ const Login = () => {
           </CCol>
         </CRow>
       </CContainer>
-      <FullPageLoader isLoading={false} />
+      <FullPageLoader isLoading={isLoading} />
     </div>
   );
 };
