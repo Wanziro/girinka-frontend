@@ -18,13 +18,13 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
 // sidebar nav config
-import navigation from "../_nav";
+import labNav from "../navs/lab-navigations/";
 import { setShowSideBar, setUnfoldableSideBar } from "src/actions/app";
 
 const AppSidebar = () => {
   const dispatch = useDispatch();
-  // const unfoldable = useSelector((state) => state.sidebarUnfoldable);
   const { sidebarShow, unfoldable } = useSelector((state) => state.app);
+  const { role } = useSelector((state) => state.user);
 
   return (
     <CSidebar
@@ -40,7 +40,7 @@ const AppSidebar = () => {
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
-          <AppSidebarNav items={navigation} />
+          {role === "admin" && <AppSidebarNav items={labNav} />}
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler

@@ -2,6 +2,7 @@ import React, { Component, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/controllers/protected-route";
+import UnProtectedRoute from "./components/controllers/un-protected-route";
 import "./scss/style.scss";
 import Logout from "./views/pages/logout";
 
@@ -38,9 +39,11 @@ class App extends Component {
               path="/login"
               name="Login Page"
               element={
-                <Suspense fallback={loading}>
-                  <Login />
-                </Suspense>
+                <UnProtectedRoute>
+                  <Suspense fallback={loading}>
+                    <Login />
+                  </Suspense>
+                </UnProtectedRoute>
               }
             />
             <Route exact path="/logout" element={<Logout />} />

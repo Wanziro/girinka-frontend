@@ -9,20 +9,11 @@ import {
   CDropdownMenu,
   CDropdownToggle,
 } from "@coreui/react";
-import {
-  cilBell,
-  cilCreditCard,
-  cilCommentSquare,
-  cilEnvelopeOpen,
-  cilFile,
-  cilLockLocked,
-  cilSettings,
-  cilTask,
-  cilUser,
-} from "@coreui/icons";
+import { cilLockLocked, cilUser } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 
 import avatar8 from "./../../assets/user.png";
+import { Link } from "react-router-dom";
 
 const AppHeaderDropdown = () => {
   return (
@@ -34,15 +25,19 @@ const AppHeaderDropdown = () => {
         <CDropdownHeader className="bg-light fw-semibold py-2">
           Settings
         </CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
-          Profile
-        </CDropdownItem>
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          <CDropdownItem>
+            <CIcon icon={cilUser} className="me-2" />
+            Profile
+          </CDropdownItem>
+        </Link>
         <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Logout
-        </CDropdownItem>
+        <Link to="/logout" style={{ textDecoration: "none" }}>
+          <CDropdownItem>
+            <CIcon icon={cilLockLocked} className="me-2" />
+            Logout
+          </CDropdownItem>
+        </Link>
       </CDropdownMenu>
     </CDropdown>
   );

@@ -1,6 +1,29 @@
-import Alerts from './Alerts'
-import Badges from './Badges'
-import Modals from './Modals'
-import Toaster from './toasts'
+import React from "react";
+import {
+  CAlert,
+  CAlertHeading,
+  CAlertLink,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CRow,
+} from "@coreui/react";
+import { DocsExample } from "src/components";
 
-export { Alerts, Badges, Modals, Toaster }
+const Alerts = () => {
+  return (
+    <CRow>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>User Notifications</strong>
+          </CCardHeader>
+          <CCardBody></CCardBody>
+        </CCard>
+      </CCol>
+    </CRow>
+  );
+};
+
+export default Alerts;
