@@ -7,18 +7,15 @@ import {
   CSidebarNav,
   CSidebarToggler,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 import { AppSidebarNav } from "./AppSidebarNav";
-
-import { logoNegative } from "src/assets/brand/logo-negative";
-import { sygnet } from "src/assets/brand/sygnet";
 
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
 // sidebar nav config
 import labNav from "../navs/lab-navigations/";
+import districtNav from "../navs/district/";
 import { setShowSideBar, setUnfoldableSideBar } from "src/actions/app";
 
 const AppSidebar = () => {
@@ -41,6 +38,7 @@ const AppSidebar = () => {
       <CSidebarNav>
         <SimpleBar>
           {role === "admin" && <AppSidebarNav items={labNav} />}
+          {role === "district" && <AppSidebarNav items={districtNav} />}
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler

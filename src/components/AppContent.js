@@ -4,6 +4,7 @@ import { CContainer, CSpinner } from "@coreui/react";
 
 // routes config
 import labRoutes from "../sub-routes/lab";
+import districtRoutes from "../sub-routes/district";
 import { useSelector } from "react-redux";
 
 const AppContent = () => {
@@ -13,6 +14,9 @@ const AppContent = () => {
   useEffect(() => {
     if (role === "admin") {
       setRoutesToUse(labRoutes);
+    }
+    if (role === "district") {
+      setRoutesToUse(districtRoutes);
     }
   }, [role]);
   return (

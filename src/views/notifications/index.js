@@ -1,17 +1,7 @@
 import React from "react";
-import {
-  CAlert,
-  CAlertHeading,
-  CAlertLink,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-} from "@coreui/react";
-import { DocsExample } from "src/components";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 
-const Alerts = () => {
+const Notifications = () => {
   return (
     <CRow>
       <CCol xs={12}>
@@ -26,4 +16,4 @@ const Alerts = () => {
   );
 };
 
-export default Alerts;
+export default Notifications;

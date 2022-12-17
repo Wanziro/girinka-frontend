@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import labRoutes from "../sub-routes/lab";
+import districtRoutes from "../sub-routes/district";
 
 import { CBreadcrumb, CBreadcrumbItem } from "@coreui/react";
 import { useSelector } from "react-redux";
@@ -14,6 +15,9 @@ const AppBreadcrumb = () => {
   useEffect(() => {
     if (role === "admin") {
       setRoutesToUse(labRoutes);
+    }
+    if (role === "district") {
+      setRoutesToUse(districtRoutes);
     }
   }, [role]);
 

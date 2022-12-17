@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import FullPageLoader from "src/components/full-page-loader";
 import {
   AppContent,
   AppSidebar,
@@ -7,6 +9,7 @@ import {
 } from "../components/index";
 
 const DefaultLayout = () => {
+  const { isLoading } = useSelector((state) => state.app);
   return (
     <div>
       <AppSidebar />
@@ -16,6 +19,7 @@ const DefaultLayout = () => {
           <AppContent />
         </div>
       </div>
+      <FullPageLoader isLoading={isLoading} />
     </div>
   );
 };
