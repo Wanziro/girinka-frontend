@@ -38,14 +38,18 @@ function Profile() {
       token,
     })
       .then((res) => {
-        setPassword("");
-        setNewPassword("");
-        dispatch(setShowFullPageLoader(false));
-        toastMessage("success", "Password updated successfull!");
+        setTimeout(() => {
+          setPassword("");
+          setNewPassword("");
+          dispatch(setShowFullPageLoader(false));
+          toastMessage("success", "Password updated successfull!");
+        }, 1000);
       })
       .catch((error) => {
-        errorHandler(error);
-        dispatch(setShowFullPageLoader(false));
+        setTimeout(() => {
+          errorHandler(error);
+          dispatch(setShowFullPageLoader(false));
+        }, 1000);
       });
   };
 
@@ -54,14 +58,18 @@ function Profile() {
     dispatch(setShowFullPageLoader(true));
     Axios.post(BACKEND_URL + "/users/updateInfo/", { ...state, token })
       .then((res) => {
-        dispatch(setShowFullPageLoader(false));
-        dispatch(setUserFullName(state.fullName));
-        dispatch(setUserPhone(state.phone));
-        toastMessage("success", "User Info updated successfull!");
+        setTimeout(() => {
+          dispatch(setShowFullPageLoader(false));
+          dispatch(setUserFullName(state.fullName));
+          dispatch(setUserPhone(state.phone));
+          toastMessage("success", "User Info updated successfull!");
+        }, 1000);
       })
       .catch((error) => {
-        errorHandler(error);
-        dispatch(setShowFullPageLoader(false));
+        setTimeout(() => {
+          errorHandler(error);
+          dispatch(setShowFullPageLoader(false));
+        }, 1000);
       });
   };
 

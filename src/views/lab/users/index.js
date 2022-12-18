@@ -85,12 +85,16 @@ const Users = () => {
     setIsLoading(true);
     Axios.get(BACKEND_URL + "/users/?token=" + token)
       .then((res) => {
-        setIsLoading(false);
-        setUsersList(res.data.users);
+        setTimeout(() => {
+          setIsLoading(false);
+          setUsersList(res.data.users);
+        }, 1000);
       })
       .catch((error) => {
-        setIsLoading(false);
-        errorHandler(error);
+        setTimeout(() => {
+          setIsLoading(false);
+          errorHandler(error);
+        }, 1000);
       });
   };
 
@@ -98,13 +102,17 @@ const Users = () => {
     dispatch(setShowFullPageLoader(true));
     Axios.delete(BACKEND_URL + "/users/" + id + "/?token=" + token)
       .then((res) => {
-        dispatch(setShowFullPageLoader(false));
-        toastMessage("success", res.data.msg);
-        fetchUsers();
+        setTimeout(() => {
+          dispatch(setShowFullPageLoader(false));
+          toastMessage("success", res.data.msg);
+          fetchUsers();
+        }, 1000);
       })
       .catch((error) => {
-        errorHandler(error);
-        dispatch(setShowFullPageLoader(false));
+        setTimeout(() => {
+          errorHandler(error);
+          dispatch(setShowFullPageLoader(false));
+        }, 1000);
       });
   };
 

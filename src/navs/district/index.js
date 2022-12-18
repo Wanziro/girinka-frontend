@@ -32,7 +32,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Cow list",
-        to: "/bbbb",
+        to: "/cowslist",
       },
       {
         component: CNavItem,
