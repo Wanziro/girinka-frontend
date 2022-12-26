@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { BACKEND_URL } from "src/constants";
 import { errorHandler, toastMessage } from "src/helpers";
-import { Sectors } from "rwanda";
 
 function ApproveCow({
   showModal,
@@ -20,7 +19,6 @@ function ApproveCow({
   fetchPcs,
   token,
   setPcsToSend,
-  fName,
   companyName,
 }) {
   const [submitting, setSubmitting] = useState(false);
@@ -68,9 +66,9 @@ function ApproveCow({
           </CModalHeader>
           <CModalBody>
             <small>
-              <b>{fName}</b> You are going to approve that you have received{" "}
-              {pcsToSend.length} cow(s) in your sector {companyName}, click on
-              button bellow to approve
+              You are going to approve that you have received {pcsToSend.length}{" "}
+              cow(s) in your sector {companyName}, click on button bellow to
+              approve
             </small>
           </CModalBody>
           <CModalFooter>
