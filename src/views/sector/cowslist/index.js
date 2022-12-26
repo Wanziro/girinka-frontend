@@ -35,7 +35,7 @@ function CowsList() {
     Axios.get(BACKEND_URL + "/sector/?token=" + token)
       .then((res) => {
         setTimeout(() => {
-          setCows(res.data.cows);
+          setCows(res.data.cows.filter((item) => item.isReceived));
           setIsLoading(false);
         }, 1000);
       })
@@ -109,7 +109,7 @@ function CowsList() {
                         <th>District</th>
                         <th>Sector</th>
                         <th>Status</th>
-                        <th>Delivered</th>
+                        <th>Received</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -33,7 +33,7 @@ function PendingCows() {
     Axios.get(BACKEND_URL + "/sector/?token=" + token)
       .then((res) => {
         setTimeout(() => {
-          setCows(res.data.cows);
+          setCows(res.data.cows.filter((item) => item.isReceived === false));
           setIsLoading(false);
         }, 1000);
       })
