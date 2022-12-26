@@ -15,6 +15,7 @@ import { setShowFullPageLoader } from "src/actions/app";
 import PlaceHolder from "src/components/placeholder";
 import CIcon from "@coreui/icons-react";
 import { cilTrash } from "@coreui/icons";
+import { Provinces, Districts, Sectors, Villages, Cells } from "rwanda";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,12 @@ const Users = () => {
   const [village, setVillage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [usersList, setUsersList] = useState([]);
+
+  const [provincesList, setProvincesList] = useState([]);
+  const [districtsList, setDistrictsList] = useState([]);
+  const [sectorsList, setSectorsList] = useState([]);
+  const [cellsList, setCellsList] = useState([]);
+  const [villagesList, setVillagesList] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,6 +86,7 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers();
+    setProvincesList(Provinces());
   }, []);
 
   const fetchUsers = () => {
@@ -238,25 +246,38 @@ const Users = () => {
                       <select
                         className="form-control"
                         value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        onChange={(e) => {
+                          setProvince(e.target.value);
+                          setDistrictsList(Districts(e.target.value));
+                        }}
                         required
                       >
                         <option value="">Choose</option>
-                        <option value="east">East</option>
-                        <option value="west">West</option>
-                        <option value="north">North</option>
-                        <option value="south">South</option>
-                        <option value="kigali">Kigali</option>
+                        {provincesList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="mb-3">
                       <label>District</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="District name"
                         value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setDistrict(e.target.value);
+                          setSectorsList(Sectors(province, e.target.value));
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {districtsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </>
                 )}
@@ -267,36 +288,59 @@ const Users = () => {
                       <select
                         className="form-control"
                         value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        onChange={(e) => {
+                          setProvince(e.target.value);
+                          setDistrictsList(Districts(e.target.value));
+                        }}
                         required
                       >
                         <option value="">Choose</option>
-                        <option value="east">East</option>
-                        <option value="west">West</option>
-                        <option value="north">North</option>
-                        <option value="south">South</option>
-                        <option value="kigali">Kigali</option>
+                        {provincesList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="mb-3">
                       <label>District</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="District name"
-                        required
                         value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setDistrict(e.target.value);
+                          setSectorsList(Sectors(province, e.target.value));
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {districtsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Sector</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Sector name"
-                        required
                         value={sector}
-                        onChange={(e) => setSector(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setSector(e.target.value);
+                          setCellsList(
+                            Cells(province, district, e.target.value)
+                          );
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {sectorsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </>
                 )}
@@ -307,46 +351,80 @@ const Users = () => {
                       <select
                         className="form-control"
                         value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        onChange={(e) => {
+                          setProvince(e.target.value);
+                          setDistrictsList(Districts(e.target.value));
+                        }}
                         required
                       >
                         <option value="">Choose</option>
-                        <option value="east">East</option>
-                        <option value="west">West</option>
-                        <option value="north">North</option>
-                        <option value="south">South</option>
-                        <option value="kigali">Kigali</option>
+                        {provincesList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="mb-3">
                       <label>District</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="District name"
-                        required
                         value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setDistrict(e.target.value);
+                          setSectorsList(Sectors(province, e.target.value));
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {districtsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Sector</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Sector name"
-                        required
                         value={sector}
-                        onChange={(e) => setSector(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setSector(e.target.value);
+                          setCellsList(
+                            Cells(province, district, e.target.value)
+                          );
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {sectorsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Cell</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Cell name"
-                        required
                         value={cell}
-                        onChange={(e) => setCell(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setCell(e.target.value);
+                          setVillagesList(
+                            Villages(province, district, sector, e.target.value)
+                          );
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {cellsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </>
                 )}
@@ -357,56 +435,98 @@ const Users = () => {
                       <select
                         className="form-control"
                         value={province}
-                        onChange={(e) => setProvince(e.target.value)}
+                        onChange={(e) => {
+                          setProvince(e.target.value);
+                          setDistrictsList(Districts(e.target.value));
+                        }}
                         required
                       >
                         <option value="">Choose</option>
-                        <option value="east">East</option>
-                        <option value="west">West</option>
-                        <option value="north">North</option>
-                        <option value="south">South</option>
-                        <option value="kigali">Kigali</option>
+                        {provincesList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="mb-3">
                       <label>District</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="District name"
-                        required
                         value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setDistrict(e.target.value);
+                          setSectorsList(Sectors(province, e.target.value));
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {districtsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Sector</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Sector name"
-                        required
                         value={sector}
-                        onChange={(e) => setSector(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setSector(e.target.value);
+                          setCellsList(
+                            Cells(province, district, e.target.value)
+                          );
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {sectorsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Cell</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Cell name"
-                        required
                         value={cell}
-                        onChange={(e) => setCell(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setCell(e.target.value);
+                          setVillagesList(
+                            Villages(province, district, sector, e.target.value)
+                          );
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {cellsList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="mb-3">
                       <label>Village</label>
-                      <input
+                      <select
                         className="form-control"
-                        placeholder="Village name"
-                        required
                         value={village}
-                        onChange={(e) => setVillage(e.target.value)}
-                      />
+                        required
+                        onChange={(e) => {
+                          setVillage(e.target.value);
+                        }}
+                      >
+                        <option value="">Choose</option>
+                        {villagesList.map((item, index) => (
+                          <option key={index} value={item}>
+                            {item}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </>
                 )}
