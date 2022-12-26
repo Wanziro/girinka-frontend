@@ -16,6 +16,7 @@ import "simplebar/dist/simplebar.min.css";
 // sidebar nav config
 import labNav from "../navs/lab-navigations/";
 import districtNav from "../navs/district/";
+import sectorNav from "../navs/sector";
 import { setShowSideBar, setUnfoldableSideBar } from "src/actions/app";
 
 const AppSidebar = () => {
@@ -39,6 +40,7 @@ const AppSidebar = () => {
         <SimpleBar>
           {role === "admin" && <AppSidebarNav items={labNav} />}
           {role === "district" && <AppSidebarNav items={districtNav} />}
+          {role === "sector" && <AppSidebarNav items={sectorNav} />}
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
