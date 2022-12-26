@@ -11,32 +11,35 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { BACKEND_URL } from "src/constants";
 import { errorHandler, toastMessage } from "src/helpers";
+import { Sectors } from "rwanda";
 
-function TransferPc({
+function TransferCow({
   showModal,
   setShowModal,
   pcsToSend,
   fetchPcs,
   token,
   setPcsToSend,
+  roleId,
 }) {
   const [submitting, setSubmitting] = useState(false);
   const [sentPcs, setSentPcs] = useState(0);
   const [institution, setInstitution] = useState("");
+  const [sectorsList, setSectorsList] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
       for (let i = 0; i < pcsToSend.length; i++) {
-        const res = await Axios.post(BACKEND_URL + "/pc/sendDevice/", {
-          pcId: pcsToSend[i]._id,
-          institution,
+        const res = await Axios.post(BACKEND_URL + "/sector/", {
+          cowId: pcsToSend[i]._id,
+          sector: institution,
           token,
         });
         setSentPcs(i + 1);
       }
       setTimeout(() => {
-        toastMessage("success", "Computer(s) Transfered!");
+        toastMessage("success", "Cow(s) Transfered!");
         setSubmitting(false);
         setShowModal(false);
         fetchPcs();
@@ -51,6 +54,16 @@ function TransferPc({
   useEffect(() => {
     if (showModal) {
       setSentPcs(0);
+      const dest = roleId.split("-");
+      if (dest.length === 2) {
+        setSectorsList(Sectors(dest[0], dest[1]));
+      } else {
+        sectorsList([]);
+        toastMessage(
+          "error",
+          "can't find destinations, please remove this user and startover"
+        );
+      }
     }
   }, [showModal]);
 
@@ -63,12 +76,12 @@ function TransferPc({
       >
         <form onSubmit={handleSubmit}>
           <CModalHeader closeButton={!submitting}>
-            <CModalTitle>Confirm Computer(s) Transfer</CModalTitle>
+            <CModalTitle>Confirm Cow(s) Transfer</CModalTitle>
           </CModalHeader>
           <CModalBody>
             <small>
-              You are going to transfer {pcsToSend.length} computer(s), please
-              choose destination
+              You are going to transfer {pcsToSend.length} cow(s), please choose
+              destination
             </small>
             <div className="mb-3">
               <label>Destination</label>
@@ -78,8 +91,11 @@ function TransferPc({
                 required
               >
                 <option value="">Choose</option>
-                <option value="reb">REB</option>
-                <option value="rtb">RTB</option>
+                {sectorsList.map((item, index) => (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                ))}
               </select>
             </div>
           </CModalBody>
@@ -99,4 +115,4 @@ function TransferPc({
   );
 }
 
-export default TransferPc;
+export default TransferCow;

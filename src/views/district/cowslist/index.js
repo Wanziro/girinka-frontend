@@ -15,14 +15,17 @@ import PlaceHolder from "src/components/placeholder";
 import CowItem from "./cow-item";
 import EditCow from "./edit-cow";
 import { setShowFullPageLoader } from "src/actions/app";
+import TransferCow from "./transfer-cow";
 
 function CowsList() {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.user);
+  const { token, roleId } = useSelector((state) => state.user);
   const [cows, setCows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [cowsToSend, setCowsToSend] = useState([]);
+  const [showTransferModal, setShowTransferModal] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -61,13 +64,43 @@ function CowsList() {
       });
   };
 
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setCowsToSend(cows.filter((item) => item.isTransfered == false));
+    } else {
+      setCowsToSend([]);
+    }
+  };
+
+  const handleSelect = (e, item) => {
+    if (e.target.checked) {
+      setCowsToSend([...cowsToSend, item]);
+    } else {
+      setCowsToSend(cowsToSend.filter((i) => i._id !== item._id));
+    }
+  };
+
   return (
     <>
       <CRow>
         <CCol md={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>Cows List ({cows.length})</strong>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <strong>Cows List ({cows.length})</strong>
+                </div>
+                <div>
+                  {cowsToSend.length > 0 && (
+                    <button
+                      className="btn btn-light"
+                      onClick={() => setShowTransferModal(true)}
+                    >
+                      Transfer ({cowsToSend.length})
+                    </button>
+                  )}
+                </div>
+              </div>
             </CCardHeader>
             <CCardBody>
               {isLoading ? (
@@ -77,6 +110,13 @@ function CowsList() {
                   <table className="table table-bordered">
                     <thead>
                       <tr>
+                        <th>
+                          <input
+                            type="checkbox"
+                            onChange={(e) => handleSelectAll(e)}
+                            className="form-check"
+                          />
+                        </th>
                         <th>#</th>
                         <th>Cow Number</th>
                         <th>Cow Type</th>
@@ -84,6 +124,8 @@ function CowsList() {
                         <th>KG</th>
                         <th>Supplier</th>
                         <th>District</th>
+                        <th>Status</th>
+                        <th>Delivered</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -96,6 +138,8 @@ function CowsList() {
                           setEditItem={setEditItem}
                           setShowEditModal={setShowEditModal}
                           deleteCow={deleteCow}
+                          handleSelect={handleSelect}
+                          cowsToSend={cowsToSend}
                         />
                       ))}
                     </tbody>
@@ -112,6 +156,15 @@ function CowsList() {
         editItem={editItem}
         fetchData={fetchData}
         token={token}
+      />
+      <TransferCow
+        showModal={showTransferModal}
+        setShowModal={setShowTransferModal}
+        pcsToSend={cowsToSend}
+        fetchPcs={fetchData}
+        token={token}
+        roleId={roleId}
+        setPcsToSend={setCowsToSend}
       />
     </>
   );
