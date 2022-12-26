@@ -10,12 +10,14 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { BACKEND_URL } from "src/constants";
 import { errorHandler, toastMessage } from "src/helpers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PlaceHolder from "src/components/placeholder";
 import CowItem from "./cow-item";
 import EditCow from "./edit-cow";
+import { setShowFullPageLoader } from "src/actions/app";
 
 function CowsList() {
+  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.user);
   const [cows, setCows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +42,22 @@ function CowsList() {
           errorHandler(error);
           setIsLoading(false);
         }, 1000);
+      });
+  };
+
+  const deleteCow = (id) => {
+    dispatch(setShowFullPageLoader(true));
+    Axios.delete(BACKEND_URL + "/cows/" + id + "?token=" + token)
+      .then((res) => {
+        setTimeout(() => {
+          dispatch(setShowFullPageLoader(false));
+          toastMessage("success", res.data.msg);
+          fetchData();
+        }, 1000);
+      })
+      .catch((error) => {
+        errorHandler(error);
+        dispatch(setShowFullPageLoader(false));
       });
   };
 
@@ -77,6 +95,7 @@ function CowsList() {
                           index={inde}
                           setEditItem={setEditItem}
                           setShowEditModal={setShowEditModal}
+                          deleteCow={deleteCow}
                         />
                       ))}
                     </tbody>

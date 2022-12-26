@@ -2,7 +2,7 @@ import { cilPen, cilTrash } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import React from "react";
 
-function CowItem({ item, index, setEditItem, setShowEditModal }) {
+function CowItem({ item, index, setEditItem, setShowEditModal, deleteCow }) {
   return (
     <tr>
       <td>{index + 1}</td>
@@ -23,7 +23,12 @@ function CowItem({ item, index, setEditItem, setShowEditModal }) {
           <CIcon icon={cilPen} />
         </button>
         &nbsp;
-        <button className="btn btn-danger">
+        <button
+          onClick={() => {
+            deleteCow(item._id);
+          }}
+          className="btn btn-danger"
+        >
           <CIcon icon={cilTrash} />
         </button>
       </td>
