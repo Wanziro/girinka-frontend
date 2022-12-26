@@ -64,8 +64,8 @@ const Users = () => {
         password: "12345",
         phone,
         role: userRole,
-        roleId: roleId.trim().toLowerCase(),
-        companyName: companyName.toUpperCase(),
+        roleId: roleId.trim(),
+        companyName: companyName.trim(),
         token,
       })
         .then((res) => {

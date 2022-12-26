@@ -58,7 +58,7 @@ function TransferCow({
       if (dest.length === 2) {
         setSectorsList(Sectors(dest[0], dest[1]));
       } else {
-        sectorsList([]);
+        setSectorsList([]);
         toastMessage(
           "error",
           "can't find destinations, please remove this user and startover"

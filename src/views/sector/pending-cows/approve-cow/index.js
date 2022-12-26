@@ -13,33 +13,31 @@ import { BACKEND_URL } from "src/constants";
 import { errorHandler, toastMessage } from "src/helpers";
 import { Sectors } from "rwanda";
 
-function TransferCow({
+function ApproveCow({
   showModal,
   setShowModal,
   pcsToSend,
   fetchPcs,
   token,
   setPcsToSend,
-  roleId,
+  fName,
+  companyName,
 }) {
   const [submitting, setSubmitting] = useState(false);
   const [sentPcs, setSentPcs] = useState(0);
-  const [institution, setInstitution] = useState("");
-  const [sectorsList, setSectorsList] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
       for (let i = 0; i < pcsToSend.length; i++) {
-        const res = await Axios.post(BACKEND_URL + "/sector/", {
-          cowId: pcsToSend[i]._id,
-          sector: institution,
+        await Axios.put(BACKEND_URL + "/sector/", {
+          cowId: pcsToSend[i].cow._id,
           token,
         });
         setSentPcs(i + 1);
       }
       setTimeout(() => {
-        toastMessage("success", "Cow(s) Transfered!");
+        toastMessage("success", "Cow(s) Approved!");
         setSubmitting(false);
         setShowModal(false);
         fetchPcs();
@@ -54,16 +52,6 @@ function TransferCow({
   useEffect(() => {
     if (showModal) {
       setSentPcs(0);
-      const dest = roleId.split("-");
-      if (dest.length === 2) {
-        setSectorsList(Sectors(dest[0], dest[1]));
-      } else {
-        setSectorsList([]);
-        toastMessage(
-          "error",
-          "can't find destinations, please remove this user and startover"
-        );
-      }
     }
   }, [showModal]);
 
@@ -76,28 +64,14 @@ function TransferCow({
       >
         <form onSubmit={handleSubmit}>
           <CModalHeader closeButton={!submitting}>
-            <CModalTitle>Confirm Cow(s) Transfer</CModalTitle>
+            <CModalTitle>Confirmation</CModalTitle>
           </CModalHeader>
           <CModalBody>
             <small>
-              You are going to transfer {pcsToSend.length} cow(s), please choose
-              destination
+              <b>{fName}</b> You are going to approve that you have received{" "}
+              {pcsToSend.length} cow(s) in your sector {companyName}, click on
+              button bellow to approve
             </small>
-            <div className="mb-3">
-              <label>Destination</label>
-              <select
-                className="form-select"
-                onChange={(e) => setInstitution(e.target.value)}
-                required
-              >
-                <option value="">Choose</option>
-                {sectorsList.map((item, index) => (
-                  <option value={item} key={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
           </CModalBody>
           <CModalFooter>
             <button
@@ -115,4 +89,4 @@ function TransferCow({
   );
 }
 
-export default TransferCow;
+export default ApproveCow;

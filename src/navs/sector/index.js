@@ -36,8 +36,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Register New",
-        to: "/registercow",
+        name: "Waiting list",
+        to: "/pendingcows",
       },
     ],
   },

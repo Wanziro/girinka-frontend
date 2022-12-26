@@ -20,8 +20,7 @@ function CowItem({ item, index, handleSelect, cowsToSend }) {
       <td>{item.cow.supplierName}</td>
       <td>{item.district}</td>
       <td>{item.sector}</td>
-      <td>{item.isTransfered ? "Transfered" : "Not Transfered"}</td>
-      <td>{item.isReceived ? "Yes" : "No"}</td>
+      <td>{item.isReceived ? "Yes" : "Not yet"}</td>
     </tr>
   );
 }

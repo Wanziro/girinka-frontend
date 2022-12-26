@@ -14,15 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import PlaceHolder from "src/components/placeholder";
 import CowItem from "./cow-item";
 import { setShowFullPageLoader } from "src/actions/app";
-import TransferCow from "./transfer-cow";
+import ApproveCow from "./approve-cow";
 
-function CowsList() {
+function PendingCows() {
   const dispatch = useDispatch();
-  const { token, roleId } = useSelector((state) => state.user);
+  const { token, companyName, fName } = useSelector((state) => state.user);
   const [cows, setCows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [editItem, setEditItem] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [cowsToSend, setCowsToSend] = useState([]);
   const [showTransferModal, setShowTransferModal] = useState(false);
 
@@ -49,7 +47,11 @@ function CowsList() {
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setCowsToSend(cows.filter((item) => item.isTransfered == false));
+      setCowsToSend(
+        cows.filter(
+          (item) => item.isTransfered == false && item.isReceived === false
+        )
+      );
     } else {
       setCowsToSend([]);
     }
@@ -71,7 +73,9 @@ function CowsList() {
             <CCardHeader>
               <div className="d-flex justify-content-between">
                 <div>
-                  <strong>Cows List ({cows.length})</strong>
+                  <strong>
+                    Cows which are yet to be received ({cows.length})
+                  </strong>
                 </div>
                 <div>
                   {cowsToSend.length > 0 && (
@@ -79,7 +83,7 @@ function CowsList() {
                       className="btn btn-light"
                       onClick={() => setShowTransferModal(true)}
                     >
-                      Transfer ({cowsToSend.length})
+                      Approve ({cowsToSend.length})
                     </button>
                   )}
                 </div>
@@ -108,19 +112,17 @@ function CowsList() {
                         <th>Supplier</th>
                         <th>District</th>
                         <th>Sector</th>
-                        <th>Status</th>
-                        <th>Delivered</th>
+                        <th>Received</th>
                       </tr>
                     </thead>
                     <tbody>
                       {cows
-                        .filter((item) => item.isReceived)
+                        .filter((item) => item.isReceived === false)
                         .map((item, inde) => (
                           <CowItem
                             key={inde}
                             item={item}
                             index={inde}
-                            setShowEditModal={setShowEditModal}
                             handleSelect={handleSelect}
                             cowsToSend={cowsToSend}
                           />
@@ -133,17 +135,18 @@ function CowsList() {
           </CCard>
         </CCol>
       </CRow>
-      <TransferCow
+      <ApproveCow
         showModal={showTransferModal}
         setShowModal={setShowTransferModal}
         pcsToSend={cowsToSend}
         fetchPcs={fetchData}
         token={token}
-        roleId={roleId}
+        fName={fName}
+        companyName={companyName}
         setPcsToSend={setCowsToSend}
       />
     </>
   );
 }
 
-export default CowsList;
+export default PendingCows;

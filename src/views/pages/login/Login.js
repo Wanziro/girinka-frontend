@@ -48,24 +48,28 @@ const Login = () => {
         password,
       })
         .then((res) => {
-          dispatch(setUserFullName(res.data.fullName));
-          dispatch(setUserPhone(res.data.phone));
-          dispatch(setUserEmail(res.data.email));
-          dispatch(setuserCompanyName(res.data.companyName));
-          dispatch(setUserRole(res.data.role));
-          dispatch(setUserRoleId(res.data.roleId));
-          dispatch(setUserToken(res.data.token));
-          setIsLoading(false);
-          navigate("/dashboard");
+          setTimeout(() => {
+            dispatch(setUserFullName(res.data.fullName));
+            dispatch(setUserPhone(res.data.phone));
+            dispatch(setUserEmail(res.data.email));
+            dispatch(setuserCompanyName(res.data.companyName));
+            dispatch(setUserRole(res.data.role));
+            dispatch(setUserRoleId(res.data.roleId));
+            dispatch(setUserToken(res.data.token));
+            setIsLoading(false);
+            navigate("/dashboard");
+          }, 1000);
         })
         .catch((error) => {
-          setIsLoading(false);
-          setPassword("");
-          if (error.response.data.msg) {
-            toastMessage("error", error.response.data.msg);
-          } else {
-            toastMessage("error", "Something went wrong. Try again later");
-          }
+          setTimeout(() => {
+            setIsLoading(false);
+            setPassword("");
+            if (error.response.data.msg) {
+              toastMessage("error", error.response.data.msg);
+            } else {
+              toastMessage("error", "Something went wrong. Try again later");
+            }
+          }, 1000);
         });
     }
   };
