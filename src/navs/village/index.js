@@ -25,24 +25,6 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: "Cows",
-    to: "/cows",
-    icon: <CIcon icon={cilNewspaper} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: "Cow list",
-        to: "/cowslist",
-      },
-      {
-        component: CNavItem,
-        name: "Waiting list",
-        to: "/pendingcows",
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
     name: "Candidates",
     to: "/candidates",
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
@@ -54,8 +36,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "New Candidates",
-        to: "/newcandidates",
+        name: "Add Candidates",
+        to: "/addcandidate",
       },
     ],
   },
