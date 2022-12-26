@@ -13,11 +13,14 @@ import { errorHandler, toastMessage } from "src/helpers";
 import { useSelector } from "react-redux";
 import PlaceHolder from "src/components/placeholder";
 import CowItem from "./cow-item";
+import EditCow from "./edit-cow";
 
 function CowsList() {
   const { token } = useSelector((state) => state.user);
   const [cows, setCows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [editItem, setEditItem] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -41,42 +44,57 @@ function CowsList() {
   };
 
   return (
-    <CRow>
-      <CCol md={12}>
-        <CCard className="mb-4">
-          <CCardHeader>
-            <strong>Cows List ({cows.length})</strong>
-          </CCardHeader>
-          <CCardBody>
-            {isLoading ? (
-              <PlaceHolder />
-            ) : (
-              <div className="table-responsive">
-                <table className="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Cow Number</th>
-                      <th>Cow Type</th>
-                      <th>Registration Status</th>
-                      <th>KG</th>
-                      <th>Supplier</th>
-                      <th>District</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cows.map((item, inde) => (
-                      <CowItem key={inde} item={item} index={inde} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
+    <>
+      <CRow>
+        <CCol md={12}>
+          <CCard className="mb-4">
+            <CCardHeader>
+              <strong>Cows List ({cows.length})</strong>
+            </CCardHeader>
+            <CCardBody>
+              {isLoading ? (
+                <PlaceHolder />
+              ) : (
+                <div className="table-responsive">
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Cow Number</th>
+                        <th>Cow Type</th>
+                        <th>Registration Status</th>
+                        <th>KG</th>
+                        <th>Supplier</th>
+                        <th>District</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cows.map((item, inde) => (
+                        <CowItem
+                          key={inde}
+                          item={item}
+                          index={inde}
+                          setEditItem={setEditItem}
+                          setShowEditModal={setShowEditModal}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+      <EditCow
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        editItem={editItem}
+        fetchData={fetchData}
+        token={token}
+      />
+    </>
   );
 }
 

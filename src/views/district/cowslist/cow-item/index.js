@@ -1,8 +1,8 @@
-import { cilDelete, cilPen } from "@coreui/icons";
+import { cilPen, cilTrash } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import React from "react";
 
-function CowItem({ item, index }) {
+function CowItem({ item, index, setEditItem, setShowEditModal }) {
   return (
     <tr>
       <td>{index + 1}</td>
@@ -13,12 +13,18 @@ function CowItem({ item, index }) {
       <td>{item.supplierName}</td>
       <td>{item.district.toUpperCase()}</td>
       <td>
-        <button className="btn btn-primary">
+        <button
+          onClick={() => {
+            setEditItem(item);
+            setShowEditModal(true);
+          }}
+          className="btn btn-primary"
+        >
           <CIcon icon={cilPen} />
         </button>
         &nbsp;
         <button className="btn btn-danger">
-          <CIcon icon={cilDelete} />
+          <CIcon icon={cilTrash} />
         </button>
       </td>
     </tr>
