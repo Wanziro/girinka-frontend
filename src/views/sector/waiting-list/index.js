@@ -59,7 +59,7 @@ const Candidates = () => {
         <CCol xs={12}>
           <CCard className="mb-4">
             <CCardHeader>
-              <strong>Girinka candidates {roleId}</strong>
+              <strong>Girinka candidates {roleId} | Waiting list</strong>
             </CCardHeader>
             <CCardBody>
               {isLoading ? (

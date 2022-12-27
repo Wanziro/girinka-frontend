@@ -22,7 +22,7 @@ import { setShowSideBar } from "src/actions/app";
 const AppHeader = () => {
   const dispatch = useDispatch();
   const { sidebarShow } = useSelector((state) => state.app);
-  const { role } = useSelector((state) => state.user);
+  const { role, companyName } = useSelector((state) => state.user);
 
   return (
     <CHeader position="sticky" className="mb-4">
@@ -39,7 +39,7 @@ const AppHeader = () => {
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>
-              Girinka Munyarwanda | {role}
+              Girinka Munyarwanda | {role} | {companyName}
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
