@@ -49,13 +49,8 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: "Candidates",
+        name: "Candidates List",
         to: "/candidates",
-      },
-      {
-        component: CNavItem,
-        name: "New Candidates",
-        to: "/newcandidates",
       },
     ],
   },

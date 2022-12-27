@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
+import {
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CRow,
+  CTooltip,
+} from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import PlaceHolder from "src/components/placeholder";
 import Axios from "axios";
@@ -94,8 +101,28 @@ const Candidates = () => {
                           <td>{item.martialStatus}</td>
                           <td>{item.ubudeheCategory}</td>
                           <td>{item.cowStatus}</td>
-                          <td>{item.cellApproval}</td>
-                          <td>{item.sectorApproval}</td>
+                          <td>
+                            <CTooltip content={item.cellApprovalDescription}>
+                              <span
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {item.cellApproval}
+                              </span>
+                            </CTooltip>
+                          </td>
+                          <td>
+                            <CTooltip content={item.sectorApprovalDescription}>
+                              <span
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {item.sectorApproval}
+                              </span>
+                            </CTooltip>
+                          </td>
                           <td>
                             <button
                               onClick={() => {

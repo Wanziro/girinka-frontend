@@ -95,7 +95,17 @@ const Candidates = () => {
                               </span>
                             </CTooltip>
                           </td>
-                          <td>{item.sectorApproval}</td>
+                          <td>
+                            <CTooltip content={item.sectorApprovalDescription}>
+                              <span
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {item.sectorApproval}
+                              </span>
+                            </CTooltip>
+                          </td>
                           <td>
                             <button
                               onClick={() => {
