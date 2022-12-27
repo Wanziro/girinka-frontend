@@ -7,6 +7,7 @@ import labRoutes from "../sub-routes/lab";
 import districtRoutes from "../sub-routes/district";
 import sectorRoutes from "../sub-routes/sector";
 import villageRoutes from "../sub-routes/village";
+import cellRoutes from "../sub-routes/cell";
 import { useSelector } from "react-redux";
 
 const AppContent = () => {
@@ -22,6 +23,9 @@ const AppContent = () => {
     }
     if (role === "sector") {
       setRoutesToUse(sectorRoutes);
+    }
+    if (role === "cell") {
+      setRoutesToUse(cellRoutes);
     }
     if (role === "village") {
       setRoutesToUse(villageRoutes);

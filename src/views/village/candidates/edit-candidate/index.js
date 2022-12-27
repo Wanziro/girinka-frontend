@@ -69,7 +69,7 @@ function EditCandidate({
       >
         <form onSubmit={handleSubmit}>
           <CModalHeader>
-            <CModalTitle>Edit Computer</CModalTitle>
+            <CModalTitle>Edit Candidate</CModalTitle>
           </CModalHeader>
           <CModalBody>
             <div className="mb-3">

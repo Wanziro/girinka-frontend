@@ -59,7 +59,7 @@ function EditCow({ showModal, setShowModal, editItem, token, fetchData }) {
       >
         <form onSubmit={handleSubmit}>
           <CModalHeader>
-            <CModalTitle>Edit Computer</CModalTitle>
+            <CModalTitle>Edit Cow</CModalTitle>
           </CModalHeader>
           <CModalBody>
             <div className="mb-3">
