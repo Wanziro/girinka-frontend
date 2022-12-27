@@ -77,7 +77,7 @@ function ApproveCow({
               className="btn btn-primary"
               disabled={submitting}
             >
-              {submitting && <CSpinner size="sm" />} Transfer{" "}
+              {submitting && <CSpinner size="sm" />} Approve{" "}
               {submitting && `${sentPcs}/${pcsToSend.length}`}
             </button>
           </CModalFooter>

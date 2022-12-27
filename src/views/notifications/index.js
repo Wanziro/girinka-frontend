@@ -7,7 +7,7 @@ const Notifications = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>User Notifications</strong>
+            <strong>Announcements</strong>
           </CCardHeader>
           <CCardBody></CCardBody>
         </CCard>

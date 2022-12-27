@@ -83,7 +83,43 @@ const Candidates = () => {
                           <td>{item.phone}</td>
                           <td>{item.martialStatus}</td>
                           <td>{item.ubudeheCategory}</td>
-                          <td>{item.cowStatus}</td>
+                          <td>
+                            {item.cowStatus === "Waiting" ? (
+                              "Waiting"
+                            ) : (
+                              <CTooltip
+                                placement="left"
+                                content={
+                                  <div>
+                                    <p className="border-bottom text-center">
+                                      Cow Details
+                                    </p>
+                                    <div>
+                                      <b>Cow Number: </b> {item.cow.cowNumber}
+                                    </div>
+                                    <div>
+                                      <b>Type: </b> {item.cow.cowType}
+                                    </div>
+                                    <div>
+                                      <b>Status: </b>{" "}
+                                      {item.cow.registrationStatus}
+                                    </div>
+                                    <div>
+                                      <b>Kg: </b> {item.cow.registrationKg}
+                                    </div>
+                                  </div>
+                                }
+                              >
+                                <span
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  {item.cowStatus}
+                                </span>
+                              </CTooltip>
+                            )}
+                          </td>
                           <td>
                             <CTooltip content={item.cellApprovalDescription}>
                               <span

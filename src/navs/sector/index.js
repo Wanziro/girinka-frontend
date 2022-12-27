@@ -19,7 +19,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: "Notifications",
+    name: "Announcements",
     to: "/notifications",
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
@@ -51,6 +51,11 @@ const _nav = [
         component: CNavItem,
         name: "Candidates List",
         to: "/candidates",
+      },
+      {
+        component: CNavItem,
+        name: "Waiting List",
+        to: "/waitinglist",
       },
     ],
   },

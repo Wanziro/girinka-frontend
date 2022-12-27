@@ -47,22 +47,6 @@ function CowsList() {
       });
   };
 
-  const handleSelectAll = (e) => {
-    if (e.target.checked) {
-      setCowsToSend(cows.filter((item) => item.isTransfered == false));
-    } else {
-      setCowsToSend([]);
-    }
-  };
-
-  const handleSelect = (e, item) => {
-    if (e.target.checked) {
-      setCowsToSend([...cowsToSend, item]);
-    } else {
-      setCowsToSend(cowsToSend.filter((i) => i._id !== item._id));
-    }
-  };
-
   return (
     <>
       <CRow>
@@ -73,16 +57,7 @@ function CowsList() {
                 <div>
                   <strong>Cows List ({cows.length})</strong>
                 </div>
-                <div>
-                  {cowsToSend.length > 0 && (
-                    <button
-                      className="btn btn-light"
-                      onClick={() => setShowTransferModal(true)}
-                    >
-                      Transfer ({cowsToSend.length})
-                    </button>
-                  )}
-                </div>
+                <div></div>
               </div>
             </CCardHeader>
             <CCardBody>
@@ -93,13 +68,6 @@ function CowsList() {
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th>
-                          <input
-                            type="checkbox"
-                            onChange={(e) => handleSelectAll(e)}
-                            className="form-check"
-                          />
-                        </th>
                         <th>#</th>
                         <th>Cow Number</th>
                         <th>Cow Type</th>
@@ -121,8 +89,6 @@ function CowsList() {
                             item={item}
                             index={inde}
                             setShowEditModal={setShowEditModal}
-                            handleSelect={handleSelect}
-                            cowsToSend={cowsToSend}
                           />
                         ))}
                     </tbody>

@@ -32,7 +32,10 @@ const Candidates = () => {
         setTimeout(() => {
           setCandidates(
             res.data.candidates.filter(
-              (item) => item.cellApproval === "Approved"
+              (item) =>
+                item.cellApproval === "Approved" &&
+                item.sectorApproval === "Approved" &&
+                item.cowStatus === "Waiting"
             )
           );
           setIsLoading(false);
@@ -73,8 +76,6 @@ const Candidates = () => {
                         <th>Status</th>
                         <th>Ubudehe</th>
                         <th>Cow</th>
-                        <th>Cell Approval</th>
-                        <th>Sector Approval</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -87,65 +88,7 @@ const Candidates = () => {
                           <td>{item.phone}</td>
                           <td>{item.martialStatus}</td>
                           <td>{item.ubudeheCategory}</td>
-                          <td>
-                            {item.cowStatus === "Waiting" ? (
-                              "Waiting"
-                            ) : (
-                              <CTooltip
-                                placement="left"
-                                content={
-                                  <div>
-                                    <p className="border-bottom text-center">
-                                      Cow Details
-                                    </p>
-                                    <div>
-                                      <b>Cow Number: </b> {item.cow.cowNumber}
-                                    </div>
-                                    <div>
-                                      <b>Type: </b> {item.cow.cowType}
-                                    </div>
-                                    <div>
-                                      <b>Status: </b>{" "}
-                                      {item.cow.registrationStatus}
-                                    </div>
-                                    <div>
-                                      <b>Kg: </b> {item.cow.registrationKg}
-                                    </div>
-                                  </div>
-                                }
-                              >
-                                <span
-                                  style={{
-                                    cursor: "pointer",
-                                  }}
-                                >
-                                  {item.cowStatus}
-                                </span>
-                              </CTooltip>
-                            )}
-                          </td>
-                          <td>
-                            <CTooltip content={item.cellApprovalDescription}>
-                              <span
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                              >
-                                {item.cellApproval}
-                              </span>
-                            </CTooltip>
-                          </td>
-                          <td>
-                            <CTooltip content={item.sectorApprovalDescription}>
-                              <span
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                              >
-                                {item.sectorApproval}
-                              </span>
-                            </CTooltip>
-                          </td>
+                          <td>{item.cowStatus}</td>
                           <td>
                             <button
                               onClick={() => {
@@ -155,18 +98,7 @@ const Candidates = () => {
                               }}
                               className="btn btn-primary"
                             >
-                              <CIcon icon={cilCheck} />
-                            </button>
-                            &nbsp;
-                            <button
-                              className="btn btn-danger"
-                              onClick={() => {
-                                setEditItem(item);
-                                setApproveStatus("Rejected");
-                                setShowEditModal(true);
-                              }}
-                            >
-                              <CIcon icon={cilDelete} />
+                              Assign cow
                             </button>
                           </td>
                         </tr>

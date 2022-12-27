@@ -1,17 +1,9 @@
+import { CTooltip } from "@coreui/react";
 import React from "react";
 
-function CowItem({ item, index, handleSelect, cowsToSend }) {
+function CowItem({ item, index }) {
   return (
     <tr>
-      <td>
-        <input
-          type="checkbox"
-          className="form-check"
-          disabled={item.isTransfered}
-          onChange={(e) => handleSelect(e, item)}
-          checked={cowsToSend.find((i) => i._id == item._id) ? true : false}
-        />
-      </td>
       <td>{index + 1}</td>
       <td>{item.cow.cowNumber}</td>
       <td>{item.cow.cowType}</td>
@@ -20,7 +12,43 @@ function CowItem({ item, index, handleSelect, cowsToSend }) {
       <td>{item.cow.supplierName}</td>
       <td>{item.district}</td>
       <td>{item.sector}</td>
-      <td>{item.isTransfered ? "Transfered" : "Not Transfered"}</td>
+      <td>
+        {item.isGiven ? (
+          <CTooltip
+            placement="left"
+            content={
+              <div>
+                <p className="border-bottom text-center">Candidate Details</p>
+                <div>
+                  <b>Names: </b> {item.candidate.names}
+                </div>
+                <div>
+                  <b>ID No: </b> {item.candidate.idNo}
+                </div>
+                <div>
+                  <b>Phone: </b> {item.candidate.phone}
+                </div>
+                <div>
+                  <b>District: </b> {item.candidate.district}
+                </div>
+                <div>
+                  <b>Sector: </b> {item.candidate.sector}
+                </div>
+                <div>
+                  <b>Cell: </b> {item.candidate.cell}
+                </div>
+                <div>
+                  <b>Village: </b> {item.candidate.village}
+                </div>
+              </div>
+            }
+          >
+            <span>Given</span>
+          </CTooltip>
+        ) : (
+          "Not yet given"
+        )}
+      </td>
       <td>{item.isReceived ? "Yes" : "No"}</td>
     </tr>
   );
