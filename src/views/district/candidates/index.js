@@ -74,7 +74,6 @@ const Candidates = () => {
                         <th>Cow</th>
                         <th>Cell Approval</th>
                         <th>Sector Approval</th>
-                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -144,29 +143,6 @@ const Candidates = () => {
                                 {item.sectorApproval}
                               </span>
                             </CTooltip>
-                          </td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                setEditItem(item);
-                                setApproveStatus("Approved");
-                                setShowEditModal(true);
-                              }}
-                              className="btn btn-primary"
-                            >
-                              <CIcon icon={cilCheck} />
-                            </button>
-                            &nbsp;
-                            <button
-                              className="btn btn-danger"
-                              onClick={() => {
-                                setEditItem(item);
-                                setApproveStatus("Rejected");
-                                setShowEditModal(true);
-                              }}
-                            >
-                              <CIcon icon={cilDelete} />
-                            </button>
                           </td>
                         </tr>
                       ))}
