@@ -17,7 +17,7 @@ const DefaultLayout = React.lazy(() => import("./layout/DefaultLayout"));
 
 // Pages
 const Login = React.lazy(() => import("./views/pages/login/Login"));
-const Home = React.lazy(() => import("./views/pages/home"));
+const Home = React.lazy(() => import("./views/home"));
 
 class App extends Component {
   render() {
