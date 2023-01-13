@@ -61,14 +61,14 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: "Reports",
-    to: "/reports",
+    name: "Stolen Cows",
+    to: "/stolencows",
     icon: <CIcon icon={cilGraph} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: "Cow Report",
-        to: "/bbbb",
+        to: "/stolencows",
       },
     ],
   },

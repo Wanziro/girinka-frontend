@@ -136,7 +136,7 @@ const StolenCows = () => {
                               }}
                               className="btn btn-primary"
                             >
-                              <CIcon icon={cilPen} />
+                              Approve/Reject
                             </button>
                           </td>
                         </tr>
