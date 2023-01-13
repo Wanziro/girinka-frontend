@@ -52,6 +52,11 @@ const _nav = [
         name: "Cow Report",
         to: "/reports",
       },
+      {
+        component: CNavItem,
+        name: "Stolen Cows",
+        to: "/stolencows",
+      },
     ],
   },
 ];
