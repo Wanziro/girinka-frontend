@@ -9,6 +9,7 @@ const CowsList = lazy(() => import("../../views/sector/cowslist"));
 const PendingCows = lazy(() => import("src/views/sector/pending-cows"));
 const Candidates = lazy(() => import("src/views/sector/candidates"));
 const WaitingList = lazy(() => import("src/views/sector/waiting-list"));
+const StolenCows = lazy(() => import("src/views/sector/reports/stolen-cows"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -18,6 +19,7 @@ const routes = [
   { path: "/pendingcows", name: "PendingCows", element: PendingCows },
   { path: "/candidates", name: "Candidates", element: Candidates },
   { path: "/waitinglist", name: "Waiting Candidates", element: WaitingList },
+  { path: "/stolencows", name: "Candidates", element: StolenCows },
   {
     path: "/notifications",
     name: "Notifications",
