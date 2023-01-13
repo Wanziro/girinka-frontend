@@ -47,11 +47,7 @@ function PendingCows() {
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setCowsToSend(
-        cows.filter(
-          (item) => item.isTransfered == false && item.isReceived === false
-        )
-      );
+      setCowsToSend(cows.filter((item) => item.isReceived === false));
     } else {
       setCowsToSend([]);
     }

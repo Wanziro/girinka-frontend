@@ -63,6 +63,7 @@ const StolenCows = () => {
                         <th>#</th>
                         <th>Names</th>
                         <th>ID Number</th>
+                        <th>Cow Number</th>
                         <th>Stolen Date</th>
                         <th>Description</th>
                         <th>Cell Approval</th>
@@ -76,6 +77,7 @@ const StolenCows = () => {
                           <td>{index + 1}</td>
                           <td>{item?.candidate?.names}</td>
                           <td>{item?.candidate?.idNo}</td>
+                          <td>{item?.cow?.cowNumber}</td>
                           <td>{item?.date}</td>
                           <td>{item?.description}</td>
                           <td>

@@ -84,6 +84,7 @@ const Candidates = () => {
                         <th>#</th>
                         <th>Names</th>
                         <th>ID Number</th>
+                        <th>Cow Number</th>
                         <th>Cow</th>
                         <th>Assigned Cow Status</th>
                         <th>Action</th>
@@ -95,6 +96,7 @@ const Candidates = () => {
                           <td>{index + 1}</td>
                           <td>{item.names}</td>
                           <td>{item.idNo}</td>
+                          <td>{item?.cow?.cowNumber}</td>
                           <td>
                             {item.cowStatus === "Waiting" ? (
                               "Waiting"

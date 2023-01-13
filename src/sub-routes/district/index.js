@@ -8,6 +8,7 @@ const Profile = lazy(() => import("../../views/profile"));
 const RegisterCow = lazy(() => import("../../views/district/register-cow"));
 const CowsList = lazy(() => import("../../views/district/cowslist"));
 const Candidates = lazy(() => import("src/views/district/candidates"));
+const StolenCows = lazy(() => import("src/views/district/reports/stolen-cows"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -16,6 +17,7 @@ const routes = [
   { path: "/registercow", name: "RegisterCow", element: RegisterCow },
   { path: "/cowslist", name: "CowsList", element: CowsList },
   { path: "/candidates", name: "Candidates", element: Candidates },
+  { path: "/stolencows", name: "Candidates", element: StolenCows },
   {
     path: "/notifications",
     name: "Notifications",

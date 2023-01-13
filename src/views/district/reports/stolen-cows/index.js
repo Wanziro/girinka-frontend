@@ -29,7 +29,11 @@ const StolenCows = () => {
       .then((res) => {
         setTimeout(() => {
           setCandidates(
-            res.data.cows.filter((item) => item.cellApproval === "Approved")
+            res.data.cows.filter(
+              (item) =>
+                item.cellApproval === "Approved" &&
+                item.sectorApproval === "Approved"
+            )
           );
           setIsLoading(false);
         }, 1000);
@@ -68,9 +72,9 @@ const StolenCows = () => {
                         <th>Cow Number</th>
                         <th>Stolen Date</th>
                         <th>Description</th>
-                        <th>Cell Approval</th>
-                        <th>Sector Approval</th>
-                        <th>Action</th>
+                        <th>Sector</th>
+                        <th>Cell</th>
+                        <th>Village</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -82,67 +86,9 @@ const StolenCows = () => {
                           <td>{item?.cow?.cowNumber}</td>
                           <td>{item?.date}</td>
                           <td>{item?.description}</td>
-                          <td>
-                            <CTooltip
-                              content={
-                                <>
-                                  <span className="d-block">
-                                    {item.cellApprovalDescription}
-                                  </span>
-                                  <span>
-                                    {item.cellApprovalDate &&
-                                      new Date(
-                                        item.cellApprovalDate
-                                      ).toLocaleDateString()}
-                                  </span>
-                                </>
-                              }
-                            >
-                              <span
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                              >
-                                {item.cellApproval}
-                              </span>
-                            </CTooltip>
-                          </td>
-                          <td>
-                            <CTooltip
-                              content={
-                                <>
-                                  <span className="d-block">
-                                    {item.sectorApprovalDescription}
-                                  </span>
-                                  <span>
-                                    {item.cellApprovalDate &&
-                                      new Date(
-                                        item.cellApprovalDate
-                                      ).toLocaleDateString()}
-                                  </span>
-                                </>
-                              }
-                            >
-                              <span
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                              >
-                                {item.sectorApproval}
-                              </span>
-                            </CTooltip>
-                          </td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                setEditItem(item);
-                                setShowEditModal(true);
-                              }}
-                              className="btn btn-primary"
-                            >
-                              Approve/Reject
-                            </button>
-                          </td>
+                          <td>{item?.sector}</td>
+                          <td>{item?.cell}</td>
+                          <td>{item?.village}</td>
                         </tr>
                       ))}
                     </tbody>
