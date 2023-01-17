@@ -1,13 +1,35 @@
 import { cilCloudDownload } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { makeStyles } from "@mui/styles";
-import React from "react";
-import { APP_COLORS } from "src/constants";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import PlaceHolder from "src/components/placeholder";
+import { APP_COLORS, BACKEND_URL } from "src/constants";
 import Footer from "./footer";
 import Header from "./header";
 
 function Home() {
   const classes = useStyles();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = () => {
+    axios
+      .get(BACKEND_URL + "/announcements/all/")
+      .then((res) => {
+        setLoading(false);
+        setData(res.data.announcements);
+      })
+      .catch((error) => {
+        setLoading(false);
+        errorHandler(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <Header />
@@ -49,19 +71,83 @@ function Home() {
         </div>
         <div className="mt-3">
           <div className="bg-light p-3" style={{ borderRadius: 10 }}>
-            <h4 style={{ fontSize: 18 }}>
-              Amakuru agendanye no gutanga inka mukarere ka Ruhango
-            </h4>
-            <p>
-              Itangazo rigenewe abaturage bo mukarere ka Ruhango kunama izaba
-              hagati yabayobozi naba turage hagamijwe gusobanura amakuru
-              yerekeye girinka munyarwanda{" "}
-            </p>
-            <b>BY: Byiringiro Patrick - Ruhango district</b> <br /> Date:
-            7/01/2023 <br />
-            <a href="">
-              <CIcon icon={cilCloudDownload} /> Download full anouncement (PDF)
-            </a>
+            <div className="table-responsive">
+              <table className="table table-bordered">
+                <thead>
+                  <th>Title</th>
+                  <th>Location</th>
+                  <th>Attachment</th>
+                  <th>Date Posted</th>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => (
+                    <tr>
+                      <td>{item.title}</td>
+                      <td>{item.location}</td>
+                      <td>
+                        <a
+                          href={
+                            "https://lawyersofhope.org.rw/assets/images/controller/uploads/" +
+                            item.attachment
+                          }
+                          target="_blank"
+                        >
+                          <CIcon icon={cilCloudDownload} /> Attachment
+                        </a>
+                      </td>
+                      <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                      {loading ? (
+                        <PlaceHolder />
+                      ) : (
+                        <>
+                          {data.length > 0 ? (
+                            <table className="table table-bordered">
+                              <thead>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Attachment</th>
+                                <th>Date Posted</th>
+                              </thead>
+                              <tbody>
+                                {data.map((item, index) => (
+                                  <tr>
+                                    <td>{item.title}</td>
+                                    <td>{item.location}</td>
+                                    <td>
+                                      <a
+                                        href={
+                                          "https://lawyersofhope.org.rw/assets/images/controller/uploads/" +
+                                          item.attachment
+                                        }
+                                        target="_blank"
+                                      >
+                                        <CIcon icon={cilCloudDownload} />{" "}
+                                        Attachment
+                                      </a>
+                                    </td>
+                                    <td>
+                                      {new Date(
+                                        item.createdAt
+                                      ).toLocaleDateString()}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          ) : (
+                            <>
+                              <div className="text-center">
+                                <p>No announcements found</p>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
