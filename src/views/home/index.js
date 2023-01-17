@@ -30,11 +30,25 @@ function Home() {
     fetchData();
   }, []);
 
+  const aboutScroll = () => {
+    const element = document.getElementById("about");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const contactScroll = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
-      <Header />
+      <Header aboutScroll={aboutScroll} contactScroll={contactScroll} />
       <div className={classes.welcomeContainer}>
-        <div className="container">
+        <div className="container" id="about">
           <div className="row">
             <div className="col-md-6">
               <div className="description">
@@ -71,87 +85,56 @@ function Home() {
         </div>
         <div className="mt-3">
           <div className="bg-light p-3" style={{ borderRadius: 10 }}>
-            <div className="table-responsive">
-              <table className="table table-bordered">
-                <thead>
-                  <th>Title</th>
-                  <th>Location</th>
-                  <th>Attachment</th>
-                  <th>Date Posted</th>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => (
-                    <tr>
-                      <td>{item.title}</td>
-                      <td>{item.location}</td>
-                      <td>
-                        <a
-                          href={
-                            "https://lawyersofhope.org.rw/assets/images/controller/uploads/" +
-                            item.attachment
-                          }
-                          target="_blank"
-                        >
-                          <CIcon icon={cilCloudDownload} /> Attachment
-                        </a>
-                      </td>
-                      <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                      {loading ? (
-                        <PlaceHolder />
-                      ) : (
-                        <>
-                          {data.length > 0 ? (
-                            <table className="table table-bordered">
-                              <thead>
-                                <th>Title</th>
-                                <th>Location</th>
-                                <th>Attachment</th>
-                                <th>Date Posted</th>
-                              </thead>
-                              <tbody>
-                                {data.map((item, index) => (
-                                  <tr>
-                                    <td>{item.title}</td>
-                                    <td>{item.location}</td>
-                                    <td>
-                                      <a
-                                        href={
-                                          "https://lawyersofhope.org.rw/assets/images/controller/uploads/" +
-                                          item.attachment
-                                        }
-                                        target="_blank"
-                                      >
-                                        <CIcon icon={cilCloudDownload} />{" "}
-                                        Attachment
-                                      </a>
-                                    </td>
-                                    <td>
-                                      {new Date(
-                                        item.createdAt
-                                      ).toLocaleDateString()}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          ) : (
-                            <>
-                              <div className="text-center">
-                                <p>No announcements found</p>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {loading ? (
+              <PlaceHolder />
+            ) : (
+              <>
+                {data.length > 0 ? (
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Attachment</th>
+                        <th>Date Posted</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.title}</td>
+                          <td>{item.location}</td>
+                          <td>
+                            <a
+                              href={
+                                "https://lawyersofhope.org.rw/assets/images/controller/uploads/" +
+                                item.attachment
+                              }
+                              target="_blank"
+                            >
+                              <CIcon icon={cilCloudDownload} /> Attachment
+                            </a>
+                          </td>
+                          <td>
+                            {new Date(item.createdAt).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <>
+                    <div className="text-center">
+                      <p>No announcements found</p>
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
-      <div className="container mt-5 mb-5">
+      <div className="container mt-5 mb-5" id="contact">
         <div className="row">
           <div className="col-md-6">
             <div

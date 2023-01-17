@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { APP_COLORS } from "src/constants";
 
-function Header() {
+function Header({ aboutScroll, contactScroll }) {
   const classes = useStyles();
   const navigate = useNavigate();
   return (
@@ -17,8 +17,8 @@ function Header() {
           <div>
             <ul className={classes.menu}>
               <li>Home</li>
-              <li>About Us</li>
-              <li>Contact Us</li>
+              <li onClick={() => aboutScroll()}>About Us</li>
+              <li onClick={() => contactScroll()}>Contact Us</li>
               <li>
                 <button onClick={() => navigate("/login")}>Login</button>
               </li>
