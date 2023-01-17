@@ -89,9 +89,9 @@ function EditCandidate({
                 <option value="Sick">Sick</option>
                 <option value="Dead">Dead</option>
                 <option value="Stolen">Stolen</option>
-                <option value="Guhaka">Guhaka</option>
-                <option value="Kugurishwa">Kugurishwa</option>
-                <option value="Yabyaye">Yabyaye</option>
+                <option value="Irahaka">Irahaka</option>
+                <option value="Sold">Sold</option>
+                <option value="Yarabyaye">Yarabyaye</option>
               </select>
             </div>
             <div className="mb-3">

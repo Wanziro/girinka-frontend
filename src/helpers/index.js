@@ -27,7 +27,10 @@ export const uploadImage = (file) => {
   return new Promise((resolve, reject) => {
     let formData = new FormData();
     formData.append("file", file, file.name);
-    Axios.post(process.env.REACT_APP_BACKEND_FILE_UPLOAD_URL, formData)
+    Axios.post(
+      "https://lawyersofhope.org.rw/assets/images/controller/upload.php",
+      formData
+    )
       .then((res) => {
         console.log(res.data);
         if (res.data.type == "success") {

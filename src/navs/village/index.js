@@ -49,7 +49,7 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: "Cow Report",
+        name: "Add Report",
         to: "/reports",
       },
       {
