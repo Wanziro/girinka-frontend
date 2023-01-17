@@ -72,6 +72,7 @@ const Candidates = () => {
                         <th>Status</th>
                         <th>Ubudehe</th>
                         <th>Cow</th>
+                        <th>Given Cow Status</th>
                         <th>Cell Approval</th>
                         <th>Sector Approval</th>
                       </tr>
@@ -121,6 +122,11 @@ const Candidates = () => {
                                 </span>
                               </CTooltip>
                             )}
+                          </td>
+                          <td>
+                            {item.cowStatus === "Waiting"
+                              ? "-"
+                              : item.assignedCowStatus}
                           </td>
                           <td>
                             <CTooltip content={item.cellApprovalDescription}>
